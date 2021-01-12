@@ -6,6 +6,15 @@ m1 = [[10,20], [30,40], m2 = [[1,2],[3,4]]
 res = m1+m2
 [[11,22],[33,44]]
 '''
+'''
+Matrix multiplication is not element by element operation.
+No. of column in matrix1 (p*n) = No.of rows in matrix2 (n*q)
+result = p*q
+Note:
+1.Number of rows in matrix1 (p)
+2.Number of rows in matrix2 or No.of column in matrix1 (n)
+3.Number of column in matrix2 (q)
+'''
 
 
 def matrix_addition(row, column):
@@ -79,6 +88,31 @@ def matrix_subtraction(row, column):
         print()
 
 
+def matrix_multiplication(num1, num2, num3):
+    matrix1 = [[int(input("Enter values for matrix1: ")) for j in range(num2)] for i in range(num1)]
+    print("matrix1: ")
+    for i in matrix1:
+        for j in range(len(i)):
+            print(format(i[j], "<5"), end=" ")
+        print()
+    matrix2 = [[int(input("Enter values for matrix2: ")) for j in range(num3)] for i in range(num2)]
+    print("matrix2: ")
+    for i in matrix2:
+        for j in range(len(i)):
+            print(format(i[j], "<5"), end=" ")
+        print()
+    res = [[int(0) for j in range(num3)] for i in range(num1)]
+
+    for i in range(len(matrix1)):
+        for j in range(len(matrix2[0])):
+            for k in range(len(matrix2)):
+                res[i][j] = res[i][j] + matrix1[i][k] * matrix2[k][j]
+    for i in res:
+        for j in i:
+            print(format(j, "<3"), end=" ")
+        print()
+
+
 def default(num1, num2):
     return "Incorrect day"
 
@@ -86,19 +120,30 @@ def default(num1, num2):
 switcher = {
     1: matrix_addition,
     2: matrix_subtraction,
+    3: matrix_multiplication,
 }
 
 
-def switch(operation, num1, num2):
-    return switcher.get(operation, default)(num1, num2)
+def switch(operation, num1, num2, num3):
+    if operation == 1 or operation == 2:
+        return switcher.get(operation, default)(num1, num2)
+    if operation == 3:
+        return switcher.get(operation, default)(num1, num2, num3)
 
 
 print('''You can perform operation
 1. Addition
-2. Subtraction''')
+2. Subtraction
+3. Multiplication''')
 
 if __name__ == "__main__":
-    choice = int(input("Select operation from 1,2 : "))
-    row_no = int(input("Enter Row number: "))
-    col_no = int(input("Enter Column number: "))
-    switch(choice, row_no, col_no)
+    choice = int(input("Select operation from 1,2,3: "))
+    if choice == 1 or choice == 2:
+        row_no = int(input("Enter Row number: "))
+        col_no = int(input("Enter Column number: "))
+        switch(choice, row_no, col_no)
+    elif choice == 3:
+        p = int(input("Enter Row number for matrix1: "))
+        q = int(input("Enter Column number for matrix1 and Row for matrix2: "))
+        n = int(input("Enter Column number for matrix2: "))
+        switch(choice, p, q, n)
