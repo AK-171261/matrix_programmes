@@ -114,7 +114,7 @@ def matrix_multiplication(num1, num2, num3):
 
 
 def default(num1, num2):
-    return "Incorrect day"
+    return "Incorrect operation"
 
 
 switcher = {
